@@ -98,6 +98,7 @@ jobs:
     container: ghcr.io/rust-cross/manylinux_2_28-cross:aarch64
     strategy:
       matrix:
+        platform: [linux/arm64]
         python-version: [[311, "3.11"]]
     steps:
       - uses: actions/checkout@v2
