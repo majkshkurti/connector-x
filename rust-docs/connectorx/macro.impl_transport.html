@@ -1,0 +1,66 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="A macro to help define a Transport."><title>impl_transport in connectorx - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../static.files/rustdoc-492a78a4a87dcc01.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="connectorx" data-themes="" data-resource-suffix="" data-rustdoc-version="1.82.0 (f6e511eec 2024-10-15)" data-channel="1.82.0" data-search-js="search-a99f1315e7cc5121.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../static.files/storage-118b08c4c78b968e.js"></script><script defer src="sidebar-items.js"></script><script defer src="../static.files/main-921df33f47b8780c.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-3b12f09e550e0385.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc macro"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../connectorx/index.html">connectorx</a><span class="version">0.4.0</span></h2></div><div class="sidebar-elems"></div></nav><div class="sidebar-resizer"></div><main><div class="width-limiter"><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1>Macro <a href="index.html">connectorx</a>::<wbr><a class="macro" href="#">impl_transport</a><button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><span class="out-of-band"><a class="src" href="../src/connectorx/macros.rs.html#149-321">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><pre class="rust item-decl"><span class="macro">macro_rules!</span> impl_transport {
+    (
+        name = <span class="macro-nonterminal">$TP</span>:ty,
+        error = <span class="macro-nonterminal">$ET</span>:ty,
+        systems = <span class="macro-nonterminal">$TSS</span>:tt =&gt; <span class="macro-nonterminal">$TSD</span>:tt,
+        route = <span class="macro-nonterminal">$S</span>:ty =&gt; <span class="macro-nonterminal">$D</span>:ty,
+        mappings = {
+            $(
+                { $(<span class="macro-nonterminal">$TOKENS</span>:tt)+ }
+            )*
+        }
+    ) =&gt; { ... };
+    (@transport <span class="macro-nonterminal">$TP</span>:ty, <span class="macro-nonterminal">$ET</span>:ty [<span class="macro-nonterminal">$TSS</span>:tt, <span class="macro-nonterminal">$TSD</span>:tt] [<span class="macro-nonterminal">$S</span>:ty, <span class="macro-nonterminal">$D</span>:ty] $([ $(<span class="macro-nonterminal">$TOKENS</span>:tt)+ ])<span class="kw-2">*</span>) =&gt; { ... };
+    (@cvtts [<span class="macro-nonterminal">$TSS</span>:tt, <span class="macro-nonterminal">$TSD</span>:tt] $( [<span class="macro-nonterminal">$V1</span>:tt [<span class="macro-nonterminal">$T1</span>:ty] =&gt; <span class="macro-nonterminal">$V2</span>:tt [<span class="macro-nonterminal">$T2</span>:ty] | conversion <span class="macro-nonterminal">$HOW</span>:ident] )<span class="kw-2">*</span>) =&gt; { ... };
+    (@process [<span class="macro-nonterminal">$TSS</span>:tt, <span class="macro-nonterminal">$TSD</span>:tt] $([ <span class="macro-nonterminal">$V1</span>:tt [<span class="macro-nonterminal">$T1</span>:ty] =&gt; <span class="macro-nonterminal">$V2</span>:tt [<span class="macro-nonterminal">$T2</span>:ty] | conversion <span class="macro-nonterminal">$HOW</span>:ident ])<span class="kw-2">*</span>) =&gt; { ... };
+    (@processor [<span class="macro-nonterminal">$TSS</span>:tt, <span class="macro-nonterminal">$TSD</span>:tt] $([ <span class="macro-nonterminal">$V1</span>:tt [<span class="macro-nonterminal">$T1</span>:ty] =&gt; <span class="macro-nonterminal">$V2</span>:tt [<span class="macro-nonterminal">$T2</span>:ty] | conversion <span class="macro-nonterminal">$HOW</span>:ident ])<span class="kw-2">*</span>, $([ $(<span class="macro-nonterminal">$TOKENS</span>:tt)+ ])<span class="kw-2">*</span>) =&gt; { ... };
+    (@process_func_branch <span class="macro-nonterminal">$OPT</span>:ident [ <span class="macro-nonterminal">$V1</span>:tt [<span class="kw-2">&amp;</span><span class="macro-nonterminal">$L1</span>:lifetime <span class="macro-nonterminal">$T1</span>:ty] =&gt; <span class="macro-nonterminal">$V2</span>:tt [<span class="kw-2">&amp;</span><span class="macro-nonterminal">$L2</span>:lifetime <span class="macro-nonterminal">$T2</span>:ty] | conversion <span class="macro-nonterminal">$HOW</span>:ident ]) =&gt; { ... };
+    (@process_func_branch <span class="macro-nonterminal">$OPT</span>:ident [ <span class="macro-nonterminal">$V1</span>:tt [<span class="macro-nonterminal">$T1</span>:ty] =&gt; <span class="macro-nonterminal">$V2</span>:tt [<span class="kw-2">&amp;</span><span class="macro-nonterminal">$L2</span>:lifetime <span class="macro-nonterminal">$T2</span>:ty] | conversion <span class="macro-nonterminal">$HOW</span>:ident ]) =&gt; { ... };
+    (@process_func_branch <span class="macro-nonterminal">$OPT</span>:ident [ <span class="macro-nonterminal">$V1</span>:tt [<span class="kw-2">&amp;</span><span class="macro-nonterminal">$L1</span>:lifetime <span class="macro-nonterminal">$T1</span>:ty] =&gt; <span class="macro-nonterminal">$V2</span>:tt [<span class="macro-nonterminal">$T2</span>:ty] | conversion <span class="macro-nonterminal">$HOW</span>:ident ]) =&gt; { ... };
+    (@process_func_branch <span class="macro-nonterminal">$OPT</span>:ident [ <span class="macro-nonterminal">$V1</span>:tt [<span class="macro-nonterminal">$T1</span>:ty] =&gt; <span class="macro-nonterminal">$V2</span>:tt [<span class="macro-nonterminal">$T2</span>:ty] | conversion <span class="macro-nonterminal">$HOW</span>:ident ]) =&gt; { ... };
+    (@process_func_branch <span class="bool-val">true </span><span class="macro-nonterminal">$T1</span>:ty, <span class="macro-nonterminal">$T2</span>:ty) =&gt; { ... };
+    (@process_func_branch <span class="bool-val">false </span><span class="macro-nonterminal">$T1</span>:ty, <span class="macro-nonterminal">$T2</span>:ty) =&gt; { ... };
+    (@cvt <span class="macro-nonterminal">$TP</span>:ty, <span class="macro-nonterminal">$V1</span>:tt [<span class="macro-nonterminal">$T1</span>:ty] =&gt; <span class="macro-nonterminal">$V2</span>:tt [<span class="macro-nonterminal">$T2</span>:ty] | conversion <span class="macro-nonterminal">$HOW</span>:ident) =&gt; { ... };
+    (@cvt auto <span class="macro-nonterminal">$TP</span>:ty, <span class="macro-nonterminal">$T1</span>:ty, <span class="macro-nonterminal">$T2</span>:ty) =&gt; { ... };
+    (@cvt auto_vec <span class="macro-nonterminal">$TP</span>:ty, <span class="macro-nonterminal">$T1</span>:ty, <span class="macro-nonterminal">$T2</span>:ty) =&gt; { ... };
+    (@cvt owned <span class="macro-nonterminal">$TP</span>:ty, <span class="macro-nonterminal">$T1</span>:ty, <span class="macro-nonterminal">$T2</span>:ty) =&gt; { ... };
+    (@cvt option <span class="macro-nonterminal">$TP</span>:ty, <span class="macro-nonterminal">$T1</span>:ty, <span class="macro-nonterminal">$T2</span>:ty) =&gt; { ... };
+    (@cvt none <span class="macro-nonterminal">$TP</span>:ty, <span class="macro-nonterminal">$T1</span>:ty, <span class="macro-nonterminal">$T2</span>:ty) =&gt; { ... };
+}</pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>A macro to help define a Transport.</p>
+<h2 id="example-usage"><a class="doc-anchor" href="#example-usage">§</a>Example Usage</h2>
+<div class="example-wrap ignore"><a href="#" class="tooltip" title="This example is not tested">ⓘ</a><pre class="rust rust-example-rendered"><code><span class="macro">impl_transport!</span>(
+    name = MsSQLArrowTransport,
+    error = MsSQLArrowTransportError,
+    systems = MsSQLTypeSystem =&gt; ArrowTypeSystem,
+    route = MsSQLSource =&gt; ArrowDestination,
+    mappings = {
+        { Tinyint[u8]                   =&gt; Int32[i32]                | conversion auto }
+        { Smallint[i16]                 =&gt; Int32[i32]                | conversion auto }
+        { Int[i32]                      =&gt; Int32[i32]                | conversion auto }
+        { Bigint[i64]                   =&gt; Int64[i64]                | conversion auto }
+        { Intn[IntN]                    =&gt; Int64[i64]                | conversion option }
+        { Float24[f32]                  =&gt; Float32[f32]              | conversion auto }
+        { Float53[f64]                  =&gt; Float64[f64]              | conversion auto }
+        { Floatn[FloatN]                =&gt; Float64[f64]              | conversion option }
+        { Bit[bool]                     =&gt; Boolean[bool]             | conversion auto  }
+        { Nvarchar[<span class="kw-2">&amp;</span><span class="lifetime">'r </span>str]             =&gt; LargeUtf8[String]         | conversion owned }
+        { Varchar[<span class="kw-2">&amp;</span><span class="lifetime">'r </span>str]              =&gt; LargeUtf8[String]         | conversion none }
+        { Nchar[<span class="kw-2">&amp;</span><span class="lifetime">'r </span>str]                =&gt; LargeUtf8[String]         | conversion none }
+        { Char[<span class="kw-2">&amp;</span><span class="lifetime">'r </span>str]                 =&gt; LargeUtf8[String]         | conversion none }
+        { Text[<span class="kw-2">&amp;</span><span class="lifetime">'r </span>str]                 =&gt; LargeUtf8[String]         | conversion none }
+        { Ntext[<span class="kw-2">&amp;</span><span class="lifetime">'r </span>str]                =&gt; LargeUtf8[String]         | conversion none }
+        { Binary[<span class="kw-2">&amp;</span><span class="lifetime">'r </span>[u8]]              =&gt; LargeBinary[Vec&lt;u8&gt;]      | conversion owned }
+        { Varbinary[<span class="kw-2">&amp;</span><span class="lifetime">'r </span>[u8]]           =&gt; LargeBinary[Vec&lt;u8&gt;]      | conversion none }
+        { Image[<span class="kw-2">&amp;</span><span class="lifetime">'r </span>[u8]]               =&gt; LargeBinary[Vec&lt;u8&gt;]      | conversion none }
+        { Numeric[Decimal]              =&gt; Float64[f64]              | conversion option }
+        { Decimal[Decimal]              =&gt; Float64[f64]              | conversion none }
+        { Datetime[NaiveDateTime]       =&gt; Date64[NaiveDateTime]     | conversion auto }
+        { Datetime2[NaiveDateTime]      =&gt; Date64[NaiveDateTime]     | conversion none }
+        { Smalldatetime[NaiveDateTime]  =&gt; Date64[NaiveDateTime]     | conversion none }
+        { Date[NaiveDate]               =&gt; Date32[NaiveDate]         | conversion auto }
+        { Datetimeoffset[DateTime&lt;Utc&gt;] =&gt; DateTimeTz[DateTime&lt;Utc&gt;] | conversion auto }
+        { Uniqueidentifier[Uuid]        =&gt; LargeUtf8[String]         | conversion option }
+    }
+);</code></pre></div>
+<p>This implements a <code>Transport</code> called <code>MsSQLArrowTransport</code> that can convert types from MsSQL to Arrow.</p>
+</div></details></section></div></main></body></html>

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["arrow","arrow2","arrowstream"],"trait":["Consume","Destination","DestinationPartition"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["bigquery","csv","dummy","mssql","mysql","oracle","postgres","sqlite","trino"],"trait":["PartitionParser","Produce","Source","SourcePartition"]};
